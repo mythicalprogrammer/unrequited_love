@@ -26,6 +26,37 @@ sudo -u postgres psql postgres
 \password postgres
 ```
 
+## Create a Role
+
+Postgres uses the concept of roles to distinguish the variety of users that can connect to a database. When it is first installed on a server, the default postgres user is actual named “postgres”.
+
+The postgres default is to use ident authentication, tying each server user to a Postgres account.
+
+```bash
+su - postgres
+```
+
+```bash
+createuser
+```
+
+```bash
+Enter name of role to add: anthony
+Shall the new role be a superuser? (y/n) y
+```
+
+Add password to user:
+```bash
+createuser --pwprompt
+```
+
+## List Roles
+
+```bash
+psql
+SELECT rolname FROM pg_roles;
+```
+
 ## References
 1. https://help.ubuntu.com/community/PostgreSQL
 2. http://ubuntuforums.org/showthread.php?t=1789374

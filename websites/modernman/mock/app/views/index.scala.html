@@ -1,5 +1,5 @@
-@(message: String)
+@(posts: List[Post])
 
 @main("ModernMen") {
-	@post.postMock()
+        @post.post(posts)
 }

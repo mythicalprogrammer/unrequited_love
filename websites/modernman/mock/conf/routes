@@ -7,6 +7,12 @@ GET     /                           controllers.Application.index
 
 GET     /signin                     controllers.Application.signin
 
+GET     /users                      controllers.User.getUsers
+
+GET     /posts                      controllers.Post.getPosts
+
+GET     /comments                   controllers.Comment.getComments
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

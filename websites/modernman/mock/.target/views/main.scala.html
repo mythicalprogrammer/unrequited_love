@@ -12,14 +12,17 @@
         <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
-    	<div id="wrap">
-			@layout.topNavbar()
-	       
-		    <div class="container" style="margin-top:80px;">
-		        @content
-		    </div> <!-- /container -->
-		    
-            @layout.footer()		   
+        <div id="wrap">
+                        @layout.topNavbar()
+
+                    <div class="container" style="margin-top:50px;">
+                        @layout.menuTop()
+                    </div> <!-- /container -->
+                    <div class="container">
+                        @content
+                    </div> <!-- /container -->
+
+            @layout.footer()
 
     </body>
 </html>

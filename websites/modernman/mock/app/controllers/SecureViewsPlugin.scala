@@ -49,10 +49,10 @@ class SecureViewsPlugin(application: play.Application) extends TemplatesPlugin {
    * @return
    */
   override def getStartSignUpPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    //securesocial.views.html.Registration.startSignUp(form)
-    views.html.secure.registration.startSignUp(form)
+    securesocial.views.html.Registration.startSignUp(form)
+    //views.html.secure.registration.startSignUp(form)
   }
-  
+
 
   /**
    * Returns the html for the reset password page
@@ -85,7 +85,7 @@ class SecureViewsPlugin(application: play.Application) extends TemplatesPlugin {
    * @return
    */
   def getPasswordChangePage[A](implicit request: SecuredRequest[A], form: Form[ChangeInfo]): Html = {
-    securesocial.views.html.passwordChange(form)      
+    securesocial.views.html.passwordChange(form)
   }
 
 

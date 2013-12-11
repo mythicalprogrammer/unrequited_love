@@ -1,14 +1,14 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-#
 
-GET     /login                      securesocial.controllers.LoginPage.login
+GET     /signin2                     controllers.Application.signin
 
 # Home page
 GET     /                           controllers.Application.index
 GET     /signin                     controllers.Application.signin
 GET     /users                      controllers.User.getUsers
+GET     /user/:id                  controllers.User.getUserByID(id: java.util.UUID)
 GET     /posts                      controllers.Post.getPosts
 GET     /comments                   controllers.Comment.getComments
 

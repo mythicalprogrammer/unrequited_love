@@ -57,8 +57,20 @@ object Users extends Table[User]("users") {
     comment_score_up ~ post_score_down ~ post_score_up ~ created_on <>
     (User, User.unapply _)
 
-  def findByPK(pk: UUID) =
-    for (entity <- Users if entity.id === pk) yield entity
+  def findByPK(pk: UUID) = database withSession {
+    val user = for (u <- Users if u.id === pk) yield u
+    Json.toJson(user.list)
+  }
+
+  def getPasswordByEmail(email: String) = database withSession {
+    val user = for (u <- Users if u.email === email) yield u
+    //user.list.head.password
+    user.list
+  }
+
+  def getUserByEmail(email: String) = database withSession {
+    (for (u <- Users if u.email === email) yield u).list
+  }
 
   def findAll = database withSession {
     Query(Users).list

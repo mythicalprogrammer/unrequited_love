@@ -21,6 +21,7 @@ import securesocial.core._
 import securesocial.core.providers.Token
 import securesocial.core.IdentityId
 
+import models.Users
 
 /**
  * A Sample In Memory user service in Scala
@@ -35,8 +36,52 @@ class InMemoryUserService(application: Application) extends UserServicePlugin(ap
   def find(id: IdentityId): Option[Identity] = {
     if ( Logger.isDebugEnabled ) {
       Logger.debug("users = %s".format(users))
+      //Logger.debug(id.userId)
+      //Logger.debug(id.providerId)
     }
-    users.get(id.userId + id.providerId)
+    //users.get(id.userId + id.providerId)
+   id.providerId match {
+      /*
+      case "facebook" => {}
+      case "google" => {}
+      case "twitter" => {}
+      */
+      case "userpass" => {
+        Logger.debug("Authenticate to postgresql implement here")
+
+        val user = Users.getUserByEmail(id.userId)
+        user match {
+          case Nil => None
+          case _ => {
+            import securesocial.core.SocialUser
+            val socialUser = new SocialUser(
+                  securesocial.core.IdentityId(user.head.id.toString,id.providerId),
+                  null,
+                  null,
+                  "",
+                  Option(user.head.email),
+                  None,
+                  securesocial.core.AuthenticationMethod("userPassword"),
+                  null,
+                  null,
+                  Some(PasswordInfo(
+                        securesocial.core.providers.utils.PasswordHasher.BCryptHasher,
+                        user.head.password)))
+            Option(socialUser)
+          }
+        }
+
+
+        //Logger.debug("typeOf: "+user.getClass)
+        //Logger.debug(user.username)
+        //Logger.debug("password"+user.password)
+        //import org.mindrot.jbcrypt._
+        //val pass = BCrypt.hashpw("easy123", BCrypt.gensalt(10))
+        //Logger.debug("password: "+pass)
+
+       // users.get(id.userId + id.providerId)
+      }
+    }
   }
 
   def findByEmailAndProvider(email: String, providerId: String): Option[Identity] = {

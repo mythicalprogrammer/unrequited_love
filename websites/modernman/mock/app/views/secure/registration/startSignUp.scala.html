@@ -1,11 +1,11 @@
 @(startForm:Form[String])(implicit request: RequestHeader)
 @import helper._
 @import securesocial.core.IdentityProvider
-@implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
-@securesocial.views.html.main( Messages("securesocial.signup.title") ) {
-    <div class="page-header">
-        <h1>@Messages("securesocial.signup.title")</h1>
-    </div>
+
+
+
+
+@main("ModernMen") {
 
     @request.flash.get("error").map { msg =>
     <div class="alert alert-error">
@@ -14,26 +14,38 @@
     }
 
     <form action="@securesocial.core.providers.utils.RoutesHelper.handleStartSignUp().absoluteURL(IdentityProvider.sslEnabled)"
-          class="form-horizontal"
+          class="form-signin"
           autocomplete="off" method="post"
     >
-        <fieldset>
+        <h2 class="form-signin-heading">Sign Up</h2>
             @helper.inputText(
-            startForm("email"),
-            '_label -> Messages("securesocial.signup.email1"),
-            'class -> "input-xlarge"
+            startForm("email1"),
+            '_label -> Nil,
+            'class -> "form-control",
+            'placeholder -> "Email address",
+            'required -> true,
+            'autofocus -> true
             )
             @helper.inputText(
             startForm("password"),
-            'class -> "input-xlarge"
-            '_label -> Messages("securesocial.signup.password"),
+            '_label -> Nil,
+            'class -> "form-control",
+            'placeholder -> "Password",
+            'required -> true
             )
+            @helper.inputText(
+            startForm("password"),
+            '_label -> Nil,
+            'class -> "form-control",
+            'placeholder -> "Password",
+            'required -> true
+            )
+        </label>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">@Messages("securesocial.signup.createAccount")</button>
-                <a class="btn" href="@securesocial.core.providers.utils.RoutesHelper.login()">@Messages("securesocial.signup.cancel")</a>
-            </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-lg btn-primary btn-block">@Messages("securesocial.signup.createAccount")</button>
+        </div>
+</form>
 
-        </fieldset>
-    </form>
+
 }

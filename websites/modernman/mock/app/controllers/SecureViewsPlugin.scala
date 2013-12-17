@@ -38,7 +38,8 @@ class SecureViewsPlugin(application: play.Application) extends TemplatesPlugin {
    * @return
    */
   override def getSignUpPage[A](implicit request: Request[A], form: Form[RegistrationInfo], token: String): Html = {
-    securesocial.views.html.Registration.signUp(form, token)
+    //securesocial.views.html.Registration.signUp(form, token)
+    views.html.secure.registration.signUp(form, token)
   }
 
   /**

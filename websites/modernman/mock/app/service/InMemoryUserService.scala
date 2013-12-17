@@ -92,7 +92,15 @@ class InMemoryUserService(application: Application) extends UserServicePlugin(ap
   }
 
   def save(user: Identity): Identity = {
+    Logger.debug("username: "+user.firstName)
+    Logger.debug("user pass: "+user.passwordInfo.get.password.toString)
+    Logger.debug("user email: "+user.email.get.toString)
+    Users.newUser(
+      user.firstName,
+      user.passwordInfo.get.password.toString,
+      user.email.get.toString)
     users = users + (user.identityId.userId + user.identityId.providerId -> user)
+    //val user = Users.getUserByEmail(id.userId)
     // this sample returns the same user object, but you could return an instance of your own class
     // here as long as it implements the Identity trait. This will allow you to use your own class in the protected
     // actions and event callbacks. The same goes for the find(id: IdentityId) method.

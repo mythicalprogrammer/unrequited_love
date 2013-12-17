@@ -27,10 +27,12 @@
             '_label -> Messages("securesocial.signup.username"),
             'class -> "input-xlarge"
             )
+      } else {
       }
 
     @helper.inputText(
         signUpForm("firstName").copy(value=Some("John")),
+        '_label -> Messages("Username"),
         'class -> "input-xlarge"
         )
 

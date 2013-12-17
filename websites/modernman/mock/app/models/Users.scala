@@ -91,7 +91,7 @@ case class User(
       Users.insert(new User(
         UUID.randomUUID(),
         username,
-        BCrypt.hashpw(password, BCrypt.gensalt(10)),
+        password,
         email,
         Option(0),
         Option(0),

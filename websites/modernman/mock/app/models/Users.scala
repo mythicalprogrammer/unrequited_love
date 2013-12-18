@@ -87,18 +87,36 @@ case class User(
         password: String,
         email: String) = database withSession {
 
+    val user = getUserByEmail(email)
+    user match {
+        case Nil => { // Insert a new user (sign-up)
+          Users.insert(new User(
+                UUID.randomUUID(),
+                username,
+                password,
+                email,
+                Option(0),
+                Option(0),
+                Option(0),
+                Option(0),
+                Option(DateTime.now)
+                ))
+            /*
+          val uid = this.autoInc.insert(user)
+            user.copy(uid = Some(uid))
+            */
+        }
+        case _ => { // Update an existing user
+          user
+          /*
+          val updatedUser = user.copy(uid = existingUser.uid)
+            userRow.update(updatedUser)
+            updatedUser
+          */
+        }
+      }
 
-      Users.insert(new User(
-        UUID.randomUUID(),
-        username,
-        password,
-        email,
-        Option(0),
-        Option(0),
-        Option(0),
-        Option(0),
-        Option(DateTime.now)
-      ))
+
 
     }
 
